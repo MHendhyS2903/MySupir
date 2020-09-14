@@ -19,16 +19,32 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group([
-    'middleware' => 'api',
+    'middleware' => 'assign.guard:users',
     'prefix' => 'auth'
 
 ], function ($router) {
     Route::post('login', 'App\Http\Controllers\Api\AuthController@login');
     Route::post('register', 'App\Http\Controllers\Api\AuthController@register');
-    Route::post('/', [AuthController::class, 'register']);
     Route::post('logout', 'App\Http\Controllers\Api\AuthController@logout');
     Route::post('refresh', 'App\Http\Controllers\Api\AuthController@refresh');
     Route::get('user-profile', 'App\Http\Controllers\Api\AuthController@userProfile');
 });
 
+<<<<<<< HEAD
 Route::get('category', 'App\Http\Controllers\Api\CategoryController@GetAllCategory');
+=======
+Route::group([
+    'middleware' => 'assign.guard:drivers',
+    'prefix' => 'auth'
+
+], function ($router) {
+    Route::post('driver-login', 'App\Http\Controllers\Api\DriverController@login');
+    Route::post('driver-register', 'App\Http\Controllers\Api\DriverController@register');
+    Route::post('driver-logout', 'App\Http\Controllers\Api\DriverController@logout');
+    Route::post('driver-refresh', 'App\Http\Controllers\Api\DriverController@refresh');
+    Route::get('driver-profile', 'App\Http\Controllers\Api\DriverController@driverProfile');
+});
+
+
+
+>>>>>>> 177e2bc855ff55a698014debed8f35a83dc0c6fa
