@@ -17,6 +17,7 @@ class CreateDriversTable extends Migration
             $table->increments('driverID');
             $table->string('name');
             $table->string('nohp');
+            $table->string('password');
             $table->text('address');
             $table->string('sim');
             $table->text('photo');

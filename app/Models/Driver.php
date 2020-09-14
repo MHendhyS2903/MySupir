@@ -18,8 +18,10 @@ class Driver extends Authenticatable implements JWTSubject
      *
      * @var array
      */
+
+    protected $primaryKey = 'driverID';
     protected $fillable = [
-        'name', 'nohp', 'address', 'sim', 'photo', 'gender',
+        'name', 'nohp', 'password', 'address', 'sim', 'photo', 'gender',
     ];
 
     /**
