@@ -30,3 +30,5 @@ Route::group([
     Route::post('refresh', 'App\Http\Controllers\Api\AuthController@refresh');
     Route::get('user-profile', 'App\Http\Controllers\Api\AuthController@userProfile');
 });
+
+Route::get('category', 'App\Http\Controllers\Api\CategoryController@GetAllCategory');
