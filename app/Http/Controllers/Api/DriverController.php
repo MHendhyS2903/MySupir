@@ -9,9 +9,9 @@ use App\Models\Driver;
 
 class DriverController extends Controller
 {
-//    public function __construct() {
-//        $this->middleware('auth:api', ['except' => ['login', 'register']]);
-//    }
+   public function __construct() {
+       $this->middleware('auth:drivers', ['except' => ['login', 'register']]);
+   }
 
     /**
      * Get a JWT via given credentials.

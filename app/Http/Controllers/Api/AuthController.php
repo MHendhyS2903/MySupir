@@ -9,9 +9,9 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-//    public function __construct() {
-//        $this->middleware('auth:api', ['except' => ['login', 'register']]);
-//    }
+    public function __construct() {
+        $this->middleware('auth:users', ['except' => ['login', 'register']]);
+    }
 
     /**
      * Get a JWT via given credentials.

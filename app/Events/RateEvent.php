@@ -9,10 +9,9 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Category;
+use App\Models\Rate;
 
-
-class CategoryEvent implements ShouldBroadcast
+class RateEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -21,11 +20,9 @@ class CategoryEvent implements ShouldBroadcast
      *
      * @return void
      */
-    // public $postID;
-
     public function __construct()
     {
-        
+        //
     }
 
     /**
@@ -35,6 +32,6 @@ class CategoryEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('category');
+        return new PrivateChannel('rate');
     }
 }

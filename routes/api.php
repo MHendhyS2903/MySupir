@@ -26,13 +26,12 @@ Route::group([
     Route::post('login', 'App\Http\Controllers\Api\AuthController@login');
     Route::post('register', 'App\Http\Controllers\Api\AuthController@register');
     Route::post('logout', 'App\Http\Controllers\Api\AuthController@logout');
-    Route::post('refresh', 'App\Http\Controllers\Api\AuthController@refresh');
     Route::get('user-profile', 'App\Http\Controllers\Api\AuthController@userProfile');
 });
 
-<<<<<<< HEAD
-Route::get('category', 'App\Http\Controllers\Api\CategoryController@GetAllCategory');
-=======
+Route::get('GetAllCategory', 'App\Http\Controllers\Api\CategoryController@GetAllCategory');
+Route::get('GetAllRate', 'App\Http\Controllers\Api\RateController@GetAllRate');
+
 Route::group([
     'middleware' => 'assign.guard:drivers',
     'prefix' => 'auth'
@@ -47,4 +46,3 @@ Route::group([
 
 
 
->>>>>>> 177e2bc855ff55a698014debed8f35a83dc0c6fa
