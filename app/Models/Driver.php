@@ -21,8 +21,14 @@ class Driver extends Authenticatable implements JWTSubject
 
     protected $primaryKey = 'driverID';
     protected $fillable = [
-        'name', 'nohp', 'password', 'address', 'sim', 'photo', 'gender',
+        'name', 'nohp', 'password', 'address', 'photo', 'gender',
     ];
+
+    public function driver(){
+        return $this->hasMany('App\Models\orderNow', 'driverID');
+        return $this->hasMany('App\Models\orderLater', 'driverID');
+        return $this->hasMany('App\Models\orderOntime', 'driverID');
+    }
 
     /**
      * The attributes that should be hidden for arrays.

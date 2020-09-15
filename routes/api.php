@@ -31,6 +31,7 @@ Route::group([
 
 Route::get('GetAllCategory', 'App\Http\Controllers\Api\CategoryController@GetAllCategory');
 Route::get('GetAllRate', 'App\Http\Controllers\Api\RateController@GetAllRate');
+Route::post('postOrderNow', 'App\Http\Controllers\Api\OrderNowController@postOrderNow');
 
 Route::group([
     'middleware' => 'assign.guard:drivers',
