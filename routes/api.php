@@ -42,6 +42,7 @@ Route::group([
     Route::post('driver-logout', 'App\Http\Controllers\Api\DriverController@logout');
     Route::post('driver-refresh', 'App\Http\Controllers\Api\DriverController@refresh');
     Route::get('driver-profile', 'App\Http\Controllers\Api\DriverController@driverProfile');
+    Route::put('driver-update', 'App\Http\Controllers\Api\DriverController@updateDriver');
 });
 
 

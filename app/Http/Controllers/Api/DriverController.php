@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
 use App\Models\Driver;
-
 class DriverController extends Controller
 {
    public function __construct() {
@@ -46,7 +45,6 @@ class DriverController extends Controller
             'password' => 'required|string|confirmed|min:6',
             'nohp' => 'required|max:13',
             'address' => 'required',
-            'sim' => 'required',
             'photo' => 'required',
             'gender' => 'required',
         ]);
@@ -94,6 +92,32 @@ class DriverController extends Controller
      */
     public function driverProfile() {
         return response()->json(auth()->user());
+    }
+
+    public function updateDriver(Request $request){
+        $this->validate($request,[
+            'name' => 'string|between:2,100',
+            'nohp' => 'max:13',
+            'address' => 'string',
+            'photo' => 'string',
+        ]);
+
+        $datadriver = Driver::find(auth()->id());
+        $datadriver->name = $request->name;
+        $datadriver->nohp = $request->nohp;
+        $datadriver->address = $request->address;
+        $datadriver->photo = $request->photo;
+
+        if($datadriver->save()){
+            return response()->json([
+                'message' => 'Driver successfully updated.',
+                'driver' => $datadriver
+            ], 201);
+        }else{
+            return response()->json([
+               'message' => 'Failed to update Driver'
+            ], 400);
+        }
     }
 
     /**
