@@ -32,3 +32,11 @@ Broadcast::channel('post-order-now', function ($orderNowID) {
 Broadcast::channel('post-order-now', function () {
     return true();
 });
+
+Broadcast::channel('post-order-later', function () {
+    return true();
+});
+
+Broadcast::channel('post-order-ontime', function () {
+    return true();
+});

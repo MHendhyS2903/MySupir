@@ -29,6 +29,7 @@ Route::group([
     Route::get('user-profile', 'App\Http\Controllers\Api\AuthController@userProfile');
 
     Route::post('postOrderNow', 'App\Http\Controllers\Api\OrderNowController@postOrderNow');
+    Route::post('postOrderLater', 'App\Http\Controllers\Api\OrderLaterController@postOrderLater');
 });
 
 Route::get('GetAllCategory', 'App\Http\Controllers\Api\CategoryController@GetAllCategory');
