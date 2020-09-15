@@ -24,3 +24,7 @@ Broadcast::channel('category', function () {
 Broadcast::channel('rate', function () {
     return true();
 });
+
+Broadcast::channel('post-order-now', function () {
+    return true();
+});
