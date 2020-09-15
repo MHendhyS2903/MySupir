@@ -27,11 +27,13 @@ Route::group([
     Route::post('register', 'App\Http\Controllers\Api\AuthController@register');
     Route::post('logout', 'App\Http\Controllers\Api\AuthController@logout');
     Route::get('user-profile', 'App\Http\Controllers\Api\AuthController@userProfile');
+
+    Route::post('postOrderNow', 'App\Http\Controllers\Api\OrderNowController@postOrderNow');
 });
 
 Route::get('GetAllCategory', 'App\Http\Controllers\Api\CategoryController@GetAllCategory');
 Route::get('GetAllRate', 'App\Http\Controllers\Api\RateController@GetAllRate');
-Route::post('postOrderNow', 'App\Http\Controllers\Api\OrderNowController@postOrderNow');
+
 
 Route::group([
     'middleware' => 'assign.guard:drivers',

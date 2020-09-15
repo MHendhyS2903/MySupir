@@ -5,14 +5,21 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Events\OrderNowEvent;
-use App\Models\Category;
+use App\Models\OrderNow;
+use Validator;
 
 class OrderNowController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:users');
+    }
+
     public function postOrderNow(Request $request)
     {
+        $auth=auth()->id();
         $driverID = $request->input('driverID');
-        $id = $request->input('id');
+        $id = $auth;
         $pickupLoc = $request->input('pickupLoc');
         $deliveryLoc = $request->input('deliveryLoc');
         $status = $request->input('status');
@@ -25,13 +32,19 @@ class OrderNowController extends Controller
         $data->deliveryLoc = $deliveryLoc;
         $data->status = $status;
         $data->rates = $rates;
-    
-        event(new OrderNowEvent($data));
 
         if($data->save()){
-            $res['message'] = "Success!";
-            $res['value'] = "$data";
-            return response($res);
+            // return response($res);
+
+            event(new OrderNowEvent($data));
+
+            return response()->json([
+                'message' => 'Success',
+                'data' => $data
+            ], 201);
         }
+
+        
+
     }
 }

@@ -21,11 +21,11 @@ class CategoryEvent implements ShouldBroadcast
      *
      * @return void
      */
-    // public $postID;
+    public $data;
 
-    public function __construct()
+    public function __construct($data)
     {
-        
+        $this->data = $data;
     }
 
     /**

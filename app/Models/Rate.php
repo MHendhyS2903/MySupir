@@ -10,6 +10,7 @@ class Rate extends Model
     use HasFactory;
 
     protected $table="rates";
+    protected $primaryKey="ratesID";
 
     protected $fillable = [
         'distance', 'price',

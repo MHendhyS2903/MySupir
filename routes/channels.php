@@ -25,6 +25,10 @@ Broadcast::channel('rate', function () {
     return true();
 });
 
+Broadcast::channel('post-order-now', function ($orderNowID) {
+    return Auth::check();
+  });
+
 Broadcast::channel('post-order-now', function () {
     return true();
 });

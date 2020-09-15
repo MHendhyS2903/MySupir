@@ -14,9 +14,9 @@ class OrderNow extends Model
 
     protected $fillable = ['driverID', 'id', 'pickupLoc', 'deliveryLoc', 'status', 'rates', 'created_at', 'updated_at'];
 
-    // public function post(){
-    //     return $this->hasMany('App\Rating', 'postID');
-    // }
+    public function orderNow(){
+        return $this->hasMany('App\Rating', 'orderNowID');
+    }
 
     public function driver(){
     	return $this->belongsTo('App\Models\Driver', 'driverID');
