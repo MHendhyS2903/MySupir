@@ -9,9 +9,8 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\OrderNow;
 
-class OrderNowEvent implements ShouldBroadcast
+class AssignDriverOrdernow implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -20,15 +19,11 @@ class OrderNowEvent implements ShouldBroadcast
      *
      * @return void
      */
-
-    public $data;
-
-    public function __construct($data)
+    public $dataorder;
+    public function __construct($dataorder)
     {
-        $this->data = $data;
+        $this->dataorder = $dataorder;
     }
-
-
 
     /**
      * Get the channels the event should broadcast on.

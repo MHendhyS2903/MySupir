@@ -47,7 +47,9 @@ Route::group([
     Route::post('driver-refresh', 'App\Http\Controllers\Api\DriverController@refresh');
     Route::get('driver-profile', 'App\Http\Controllers\Api\DriverController@driverProfile');
     Route::put('driver-update', 'App\Http\Controllers\Api\DriverController@updateDriver');
+    Route::put('assign-driver-ordernow/{id}', 'App\Http\Controllers\Api\OrderNowController@assignDriverOrderNow');
 });
+
 
 
 
