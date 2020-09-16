@@ -28,6 +28,8 @@ Route::group([
     Route::post('logout', 'App\Http\Controllers\Api\AuthController@logout');
     Route::get('user-profile', 'App\Http\Controllers\Api\AuthController@userProfile');
 
+    Route::get('GetUserHistoryOrder', 'App\Http\Controllers\Api\OrderHistoryController@GetUserHistoryOrder');
+
     Route::post('postOrderNow', 'App\Http\Controllers\Api\OrderNowController@postOrderNow');
     Route::post('postOrderLater', 'App\Http\Controllers\Api\OrderLaterController@postOrderLater');
 });

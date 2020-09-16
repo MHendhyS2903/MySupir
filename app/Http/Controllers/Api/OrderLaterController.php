@@ -23,24 +23,24 @@ class OrderLaterController extends Controller
         $pickupLoc = $request->input('pickupLoc');
         $deliveryLoc = $request->input('deliveryLoc');
         $rentalDate = $request->input('rentalDate');
-        $rentalTime = $request->input('rentalTime');
+        $rentalTIme = $request->input('rentalTIme');
         $status = $request->input('status');
         $rates = $request->input('rates');
     
-        $data = new \App\Models\OrderNow();
+        $data = new \App\Models\OrderLater();
         $data->driverID = $driverID;
         $data->id = $id;
         $data->pickupLoc = $pickupLoc;
         $data->deliveryLoc = $deliveryLoc;
         $data->rentalDate = $rentalDate;
-        $data->rentalTime = $rentalTime;
+        $data->rentalTIme = $rentalTIme;
         $data->status = $status;
         $data->rates = $rates;
 
         if($data->save()){
             // return response($res);
 
-            event(new OrderNowEvent($data));
+            // event(new OrderLaterEvent($data));
 
             return response()->json([
                 'message' => 'Success',

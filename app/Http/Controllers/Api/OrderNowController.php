@@ -36,15 +36,12 @@ class OrderNowController extends Controller
         if($data->save()){
             // return response($res);
 
-            event(new OrderNowEvent($data));
+            // event(new OrderNowEvent($data));
 
             return response()->json([
                 'message' => 'Success',
                 'data' => $data
             ], 201);
         }
-
-        
-
     }
 }

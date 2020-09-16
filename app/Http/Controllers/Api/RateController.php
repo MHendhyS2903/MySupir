@@ -13,7 +13,7 @@ class RateController extends Controller
     {
         $data = Rate::all();
 
-        event(new RateEvent($data));
+        // event(new RateEvent($data));
 
         return response()->json([
             'status' => 'Success !',

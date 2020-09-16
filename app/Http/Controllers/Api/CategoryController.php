@@ -13,7 +13,7 @@ class CategoryController extends Controller
     {
         $data = Category::all();
 
-        event(new CategoryEvent($data));
+        // event(new CategoryEvent($data));
 
         return response()->json([
             'status' => 'Success !',
