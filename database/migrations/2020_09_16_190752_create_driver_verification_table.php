@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrderLaterTable extends Migration
+class CreateDriverVerificationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,11 @@ class CreateOrderLaterTable extends Migration
      */
     public function up()
     {
-        Schema::create('order_later', function (Blueprint $table) {
-            $table->increments('orderLaterID');
+        Schema::create('driver_verification', function (Blueprint $table) {
+            $table->increments('verificationID');
             $table->integer('driverID')->unsigned();
-            $table->integer('id')->unsigned();
-            $table->string('pickupLoc');
-            $table->string('deliveryLoc');
-            $table->date('rentalDate');
-            $table->time('rentalTIme');
-            $table->string('status');
-            $table->string('rates');
+            $table->integer('orderID')->unsigned();
+            $table->string('photo');
             $table->timestamps();
 
             $table->foreign('driverID')
@@ -31,9 +26,9 @@ class CreateOrderLaterTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->foreign('id')
-                ->references('id')
-                ->on('users')
+            $table->foreign('orderID')
+                ->references('orderID')
+                ->on('order')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
@@ -46,6 +41,6 @@ class CreateOrderLaterTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_later');
+        Schema::dropIfExists('driver_verification');
     }
 }

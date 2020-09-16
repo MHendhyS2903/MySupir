@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrderNowTable extends Migration
+class CreateRefundTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,25 +13,18 @@ class CreateOrderNowTable extends Migration
      */
     public function up()
     {
-        Schema::create('order_now', function (Blueprint $table) {
-            $table->increments('orderNowID');
+        Schema::create('refund', function (Blueprint $table) {
+            $table->increments('refundID');
             $table->integer('driverID')->unsigned();
-            $table->integer('id')->unsigned();
-            $table->string('pickupLoc');
-            $table->string('deliveryLoc');
-            $table->string('status');
-            $table->string('rates');
+            $table->string('total');
+            $table->string('bank');
+            $table->string('accountNumber');
+            $table->string('clientName');
             $table->timestamps();
 
             $table->foreign('driverID')
                 ->references('driverID')
                 ->on('drivers')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-
-            $table->foreign('id')
-                ->references('id')
-                ->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
@@ -44,6 +37,6 @@ class CreateOrderNowTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_now');
+        Schema::dropIfExists('refund');
     }
 }

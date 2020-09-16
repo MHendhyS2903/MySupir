@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSimTable extends Migration
+class CreateCancellationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateSimTable extends Migration
      */
     public function up()
     {
-        Schema::create('sim', function (Blueprint $table) {
-            $table->increments('simID');
-            $table->enum('simType', ['A', 'B', 'C']);
-            $table->integer('driverID')->unsigned();
+        Schema::create('cancellation', function (Blueprint $table) {
+            $table->increments('cancelID');
+            $table->integer('orderID')->unsigned();
+            $table->string('reason');
             $table->timestamps();
 
-            $table->foreign('driverID')
-                ->references('driverID')
-                ->on('drivers')
+            $table->foreign('orderID')
+                ->references('orderID')
+                ->on('order')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
@@ -34,6 +34,6 @@ class CreateSimTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sim');
+        Schema::dropIfExists('cancellation');
     }
 }

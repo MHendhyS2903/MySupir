@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrderOntimeTable extends Migration
+class CreateOrderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreateOrderOntimeTable extends Migration
      */
     public function up()
     {
-        Schema::create('order_ontime', function (Blueprint $table) {
-            $table->increments('orderOntimeID');
+        Schema::create('order', function (Blueprint $table) {
+            $table->increments('orderID');
             $table->integer('driverID')->unsigned();
             $table->integer('id')->unsigned();
-            $table->string('pickupLoc');
-            $table->string('deliveryLoc');
+            $table->integer('categoryID')->unsigned();
             $table->date('startDate');
-            $table->time('startTIme');
-            $table->date('endDate');
-            $table->time('endlTIme');
+            $table->date('endDate')->nullable();
+            $table->time('startTime');
+            $table->time('endTime')->nullable();
             $table->string('status');
             $table->string('rates');
             $table->timestamps();
@@ -38,6 +37,12 @@ class CreateOrderOntimeTable extends Migration
                 ->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
+            $table->foreign('categoryID')
+                ->references('categoryID')
+                ->on('categories')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 
@@ -48,6 +53,6 @@ class CreateOrderOntimeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_ontime');
+        Schema::dropIfExists('order');
     }
 }

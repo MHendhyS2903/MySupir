@@ -16,12 +16,12 @@ class CreateDriversTable extends Migration
         Schema::create('drivers', function (Blueprint $table) {
             $table->increments('driverID');
             $table->string('name');
-            $table->string('nohp');
+            $table->string('nohp')->unique();
             $table->string('password');
             $table->text('address');
-            $table->string('sim');
-            $table->text('photo');
+            $table->string('photo');
             $table->string('gender');
+            $table->enum('status', ['active', 'inactive']);
             $table->timestamps();
         });
     }

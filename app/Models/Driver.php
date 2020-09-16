@@ -21,7 +21,7 @@ class Driver extends Authenticatable implements JWTSubject
 
     protected $primaryKey = 'driverID';
     protected $fillable = [
-        'name', 'nohp', 'password', 'address', 'photo', 'gender',
+        'name', 'nohp', 'password', 'address', 'photo', 'gender', 'status'
     ];
 
     public function driver(){
