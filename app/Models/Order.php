@@ -18,7 +18,7 @@ class Order extends Model
 
     public function order(){
         return $this->hasMany('App\Models\Cancellation', 'orderID');
-        return $this->hasMany('App\Models\Complaint', 'orderiD');
+        return $this->hasMany('App\Models\Complaint', 'complaintID');
         return $this->hasMany('App\Models\Location', 'locationID');
         return $this->hasMany('App\Models\Payment', 'paymentID');
     }

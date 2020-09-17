@@ -30,8 +30,7 @@ Route::group([
 
     Route::get('GetUserHistoryOrder', 'App\Http\Controllers\Api\OrderHistoryController@GetUserHistoryOrder');
 
-    Route::post('postOrderNow', 'App\Http\Controllers\Api\OrderNowController@postOrderNow');
-    Route::post('postOrderLater', 'App\Http\Controllers\Api\OrderLaterController@postOrderLater');
+    Route::post('postOrder', 'App\Http\Controllers\Api\OrderController@postOrder');
 });
 
 Route::get('GetAllCategory', 'App\Http\Controllers\Api\CategoryController@GetAllCategory');

@@ -29,7 +29,7 @@ Broadcast::channel('rate', function () {
 //    return Auth::check();
 //  });
 
-Broadcast::channel('order-now', function () {
+Broadcast::channel('order.{orderId}', function () {
     return true();
 });
 

@@ -4,44 +4,47 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Events\OrderEvent;
 
-class OrderOntimeController extends Controller
+class OrderController extends Controller
 {
+
     public function __construct()
     {
-        $this->middleware('auth:users');
+        $this->middleware('auth:users,drivers');
     }
 
-    public function postOrderOntime(Request $request)
+    public function postOrder(Request $request)
     {
         $auth=auth()->id();
+        $distance = $request->input('distance');
+
         $driverID = $request->input('driverID');
         $id = $auth;
-        $pickupLoc = $request->input('pickupLoc');
-        $deliveryLoc = $request->input('deliveryLoc');
+        $categoryID = $request->input('categoryID');
         $startDate = $request->input('startDate');
-        $startTIme = $request->input('startTIme');
         $endDate = $request->input('endDate');
-        $endTIme = $request->input('endTIme');
+        $startTime = $request->input('startTime');
+        $endTime = $request->input('endTime');
         $status = $request->input('status');
         $rates = $request->input('rates');
-    
-        $data = new \App\Models\OrderNow();
+
+        $data = new \App\Models\Order();
         $data->driverID = $driverID;
         $data->id = $id;
-        $data->pickupLoc = $pickupLoc;
-        $data->deliveryLoc = $deliveryLoc;
+        $data->categoryID = $categoryID;
         $data->startDate = $startDate;
-        $data->startTIme = $startTIme;
         $data->endDate = $endDate;
-        $data->endTIme = $endTIme;
+        $data->startTime = $startTime;
+        $data->endTime = $endTime;
         $data->status = $status;
         $data->rates = $rates;
 
         if($data->save()){
             // return response($res);
-
-            event(new OrderNowEvent($data));
+            
+            $orderID = $data->orderID;
+            event(new OrderEvent($data, $orderID));
 
             return response()->json([
                 'message' => 'Success',

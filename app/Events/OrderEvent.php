@@ -9,8 +9,9 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Order;
 
-class OrderOntimeEvent
+class OrderEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -26,6 +27,7 @@ class OrderOntimeEvent
         $this->data = $data;
     }
 
+
     /**
      * Get the channels the event should broadcast on.
      *
@@ -33,6 +35,6 @@ class OrderOntimeEvent
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('post-order-ontime');
+        return new PrivateChannel('order.'.$this->data->orderID);
     }
 }
