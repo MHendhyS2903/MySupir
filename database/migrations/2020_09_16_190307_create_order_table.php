@@ -15,7 +15,7 @@ class CreateOrderTable extends Migration
     {
         Schema::create('order', function (Blueprint $table) {
             $table->increments('orderID');
-            $table->integer('driverID')->unsigned();
+            $table->integer('driverID')->unsigned()->nullable();
             $table->integer('id')->unsigned();
             $table->integer('categoryID')->unsigned();
             $table->date('startDate');
