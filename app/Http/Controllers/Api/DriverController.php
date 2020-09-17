@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
 use App\Models\Driver;
+use App\Models\DriverLoc;
 class DriverController extends Controller
 {
    public function __construct() {
@@ -118,6 +119,73 @@ class DriverController extends Controller
                'message' => 'Failed to update Driver'
             ], 400);
         }
+    }
+
+    public function toggleOn($loc, $lat, $long){
+        $datadriver = Driver::find(auth()->id());
+        $datadriver->status = 'active';
+
+        if($datadriver->save()){
+            $driverloc = DriverLoc::create([
+               'driverID' => auth()->id(),
+               'location' => $loc,
+               'long' => $long,
+               'lat' => $lat
+            ]);
+            return response()->json([
+                'message' => 'Driver location created.',
+                'driver' => $datadriver,
+                'driverloc' => $driverloc
+            ], 201);
+        }else{
+            return response()->json([
+                'message' => 'Failed to create driver location.'
+            ], 400);
+        }
+    }
+
+    public function toggleOff(){
+        $datadriver = Driver::find(auth()->id());
+        $datadriver->status = 'inactive';
+
+        if($datadriver->save()) {
+            $driverloc = DriverLoc::where('driverID', auth()->id())->first();
+            if ($driverloc->delete()) {
+                return response()->json([
+                    'message' => 'Driver location deleted.',
+                    'driver' => $datadriver,
+                ], 201);
+            } else {
+                return response()->json([
+                    'message' => 'Failed to delete driver location.'
+                ], 400);
+            }
+        }
+    }
+
+    public function updateLocation($loc, $lat, $long){
+        $datadriver = Driver::find(auth()->id());
+        if($datadriver->status == 'active'){
+            $driverloc = DriverLoc::where('driverID', auth()->id())->first();
+            $driverloc->location = $loc;
+            $driverloc->long = $long;
+            $driverloc->lat = $lat;
+            if($driverloc->save()){
+                return response()->json([
+                    'message' => 'Driver location updated.',
+                    'driverloc' => $driverloc,
+                ], 201);
+            }else{
+                return response()->json([
+                    'message' => 'Failed to update driver location.'
+                ], 400);
+            }
+        }else{
+            return response()->json([
+                'message' => 'Driver is inactive.'
+            ], 400);
+        }
+
     }
 
     /**
