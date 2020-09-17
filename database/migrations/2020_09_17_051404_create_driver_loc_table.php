@@ -14,6 +14,7 @@ class CreateDriverLocTable extends Migration
     public function up()
     {
         Schema::create('driver_loc', function (Blueprint $table) {
+            $table->increments('driverLocID');
             $table->integer('driverID')->unsigned();
             $table->string('location');
             $table->string('long');

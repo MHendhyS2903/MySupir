@@ -48,7 +48,10 @@ Route::group([
     Route::post('driver-refresh', 'App\Http\Controllers\Api\DriverController@refresh');
     Route::get('driver-profile', 'App\Http\Controllers\Api\DriverController@driverProfile');
     Route::put('driver-update', 'App\Http\Controllers\Api\DriverController@updateDriver');
-    Route::put('assign-driver-ordernow/{id}', 'App\Http\Controllers\Api\OrderNowController@assignDriverOrderNow');
+//    Route::put('assign-driver-ordernow/{id}', 'App\Http\Controllers\Api\OrderNowController@assignDriverOrderNow');
+    Route::post('toggle-on/{loc}/{lat}/{long}', 'App\Http\Controllers\Api\DriverController@toggleOn');
+    Route::post('toggle-off', 'App\Http\Controllers\Api\DriverController@toggleOff');
+    Route::post('update-loc/{loc}/{lat}/{long}', 'App\Http\Controllers\Api\DriverController@updateLocation');
 });
 
 
