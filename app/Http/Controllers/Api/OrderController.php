@@ -19,9 +19,12 @@ class OrderController extends Controller
     {
         $auth=auth()->id();
         
-        $query = DriverLoc::where('driverID', '!=', null);
-        $query = $query->select("*", DB::raw("6371 * acos(cos(radians(".$lat.")) * cos(radians(json_extract(koordinat, '$[0]'))) * cos(radians(json_extract(koordinat, '$[1]')) - radians(".$lang.")) + sin(radians(".$lat.")) * sin(radians(json_extract(koordinat, '$[0]')))) AS distance"))->having('distance', '<=', 10); // cari tempat radius 10 KM
+        // $lat = Order::find(1)->location->pickupLat; //'09809'
+        // $long = Order::find(1)->location->pickupLong; 
 
+        // $query = DriverLoc::where('driverID', '!=', null);
+        // $query = $query->select("*", DB::raw("6371 * acos(cos(radians(".$lat.")) * cos(radians(json_extract(koordinat, '$[0]'))) * cos(radians(json_extract(koordinat, '$[1]')) - radians(".$lang.")) + sin(radians(".$lat.")) * sin(radians(json_extract(koordinat, '$[0]')))) AS distance"))->having('distance', '<=', 10)->get(); // cari tempat radius 10 KM
+        
         $driverID = $request->input('driverID');
         $id = $auth;
         $categoryID = $request->input('categoryID');
