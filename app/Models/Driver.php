@@ -25,9 +25,9 @@ class Driver extends Authenticatable implements JWTSubject
     ];
 
     public function driver(){
-        return $this->hasMany('App\Models\orderNow', 'driverID');
-        return $this->hasMany('App\Models\orderLater', 'driverID');
-        return $this->hasMany('App\Models\orderOntime', 'driverID');
+        return $this->hasMany('App\Models\Order', 'driverID');
+        return $this->hasMany('App\Models\Refund', 'driverID');
+        return $this->hasMany('App\Models\Sim', 'driverID');
     }
 
     /**

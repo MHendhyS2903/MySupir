@@ -15,4 +15,8 @@ class Refund extends Model
     protected $fillable = [
         'driverID', 'total', 'bank', 'accountNumber', 'clientName', 'created_at', 'updated_at',
     ];
+
+    public function driver(){
+    	return $this->belongsTo('App\Models\Driver', 'driverID');
+    }
 }

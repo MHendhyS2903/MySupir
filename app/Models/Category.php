@@ -16,7 +16,7 @@ class Category extends Model
         'name', 'image',
     ];
 
-    // public function category(){
-    //     return $this->hasMany('App\Rating', 'postID');
-    // }
+    public function category(){
+        return $this->hasMany('App\Models\Order', 'categoryID');
+    }
 }

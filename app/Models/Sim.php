@@ -15,4 +15,8 @@ class Sim extends Model
     protected $fillable = [
         'simType', 'driverID', 'created_at', 'updated_at',
     ];
+
+    public function driver(){
+    	return $this->belongsTo('App\Models\Driver', 'driverID');
+    }
 }

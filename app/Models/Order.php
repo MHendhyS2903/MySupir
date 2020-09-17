@@ -15,4 +15,23 @@ class Order extends Model
     protected $fillable = [
         'driverID', 'id', 'categoryID', 'startDate', 'endDate', 'startTime', 'endTime', 'status', 'rates', 'created_at', 'updated_at',
     ];
+
+    public function order(){
+        return $this->hasMany('App\Models\Cancellation', 'orderID');
+        return $this->hasMany('App\Models\Complaint', 'orderiD');
+        return $this->hasMany('App\Models\Location', 'locationID');
+        return $this->hasMany('App\Models\Payment', 'paymentID');
+    }
+
+    public function driver(){
+    	return $this->belongsTo('App\Models\Driver', 'driverID');
+    }
+
+    public function user(){
+    	return $this->belongsTo('App\Models\User', 'id');
+    }
+
+    public function category(){
+    	return $this->belongsTo('App\Models\Category', 'categoryID');
+    }
 }
