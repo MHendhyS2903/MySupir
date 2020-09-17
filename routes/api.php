@@ -31,6 +31,8 @@ Route::group([
     Route::get('GetUserHistoryOrder', 'App\Http\Controllers\Api\OrderHistoryController@GetUserHistoryOrder');
 
     Route::post('postOrder', 'App\Http\Controllers\Api\OrderController@postOrder');
+    Route::post('postComplaint', 'App\Http\Controllers\Api\ComplaintController@postComplaint');
+    Route::post('postCancellation', 'App\Http\Controllers\Api\CancellationController@postCancellation');
 });
 
 Route::get('GetAllCategory', 'App\Http\Controllers\Api\CategoryController@GetAllCategory');

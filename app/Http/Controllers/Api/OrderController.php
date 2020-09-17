@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Events\OrderEvent;
+use App\Models\DriverLoc;
 
 class OrderController extends Controller
 {
@@ -17,7 +18,9 @@ class OrderController extends Controller
     public function postOrder(Request $request)
     {
         $auth=auth()->id();
-        $distance = $request->input('distance');
+        
+        $query = DriverLoc::where('driverID', '!=', null);
+        $query = $query->select("*", DB::raw("6371 * acos(cos(radians(".$lat.")) * cos(radians(json_extract(koordinat, '$[0]'))) * cos(radians(json_extract(koordinat, '$[1]')) - radians(".$lang.")) + sin(radians(".$lat.")) * sin(radians(json_extract(koordinat, '$[0]')))) AS distance"))->having('distance', '<=', 10); // cari tempat radius 10 KM
 
         $driverID = $request->input('driverID');
         $id = $auth;

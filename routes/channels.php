@@ -29,11 +29,15 @@ Broadcast::channel('rate', function () {
 //    return Auth::check();
 //  });
 
-Broadcast::channel('order.{orderId}', function () {
+Broadcast::channel('order.{orderID}', function () {
     return true();
 });
 
-Broadcast::channel('post-order-later', function () {
+Broadcast::channel('complaint.{complaintID}', function () {
+    return true();
+});
+
+Broadcast::channel('cancellation.{cancelID}', function () {
     return true();
 });
 
