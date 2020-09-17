@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class AssignDriverOrdernow implements ShouldBroadcast
+class AssignDriverEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -19,7 +19,9 @@ class AssignDriverOrdernow implements ShouldBroadcast
      *
      * @return void
      */
+
     public $dataorder;
+
     public function __construct($dataorder)
     {
         $this->dataorder = $dataorder;
@@ -32,6 +34,6 @@ class AssignDriverOrdernow implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('order-now');
+        return new PrivateChannel('order.'.$this->dataorder->orderID);
     }
 }

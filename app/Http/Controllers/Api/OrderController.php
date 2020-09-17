@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Events\OrderEvent;
 use App\Models\DriverLoc;
-
+use App\Models\Driver;
+use App\Events\AssignDriverEvent;
 class OrderController extends Controller
 {
 
@@ -18,7 +20,7 @@ class OrderController extends Controller
     public function postOrder(Request $request)
     {
         $auth=auth()->id();
-        
+
         $query = DriverLoc::where('driverID', '!=', null);
         $query = $query->select("*", DB::raw("6371 * acos(cos(radians(".$lat.")) * cos(radians(json_extract(koordinat, '$[0]'))) * cos(radians(json_extract(koordinat, '$[1]')) - radians(".$lang.")) + sin(radians(".$lat.")) * sin(radians(json_extract(koordinat, '$[0]')))) AS distance"))->having('distance', '<=', 10); // cari tempat radius 10 KM
 
@@ -45,7 +47,7 @@ class OrderController extends Controller
 
         if($data->save()){
             // return response($res);
-            
+
             $orderID = $data->orderID;
             event(new OrderEvent($data, $orderID));
 
@@ -53,6 +55,37 @@ class OrderController extends Controller
                 'message' => 'Success',
                 'data' => $data
             ], 201);
+        }
+    }
+
+    public function assignDriver($id){
+        $dataorder = Order::find($id);
+        if($dataorder->driverID == null){
+            $driver = Driver::find(auth()->id());
+            if($driver->status == 'active'){
+                $dataorder->driverID = auth()->id();
+
+                if($dataorder->save()){
+                event(new AssignDriverEvent($dataorder));
+                    return response()->json([
+                        'message' => 'Order accepted.',
+                        'order' => $dataorder,
+                        'driver' => $driver
+                    ], 201);
+                }else{
+                    return response()->json([
+                        'message' => 'Failed to accept order.'
+                    ], 400);
+                }
+            }else{
+                return response()->json([
+                    'message' => 'Driver is inactive.'
+                ], 400);
+            }
+        }else{
+            return response()->json([
+                'message' => 'Other driver has accepted the order.'
+            ], 400);
         }
     }
 }
