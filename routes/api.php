@@ -52,6 +52,8 @@ Route::group([
     Route::put('driver-update', 'App\Http\Controllers\Api\DriverController@updateDriver');
     Route::put('assign-driver/{id}', 'App\Http\Controllers\Api\OrderController@assignDriver');
     Route::post('toggle/{loc}/{lat}/{long}/{status}', 'App\Http\Controllers\Api\DriverController@toggle');
+    Route::post('verification-start/{orderID}/{status}', 'App\Http\Controllers\Api\VerificationController@addPhotoStart');
+    Route::post('verification-finish/{orderID}/{status}', 'App\Http\Controllers\Api\VerificationController@addPhotoFinish');
 });
 
 
