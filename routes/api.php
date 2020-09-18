@@ -51,9 +51,7 @@ Route::group([
     Route::get('driver-profile', 'App\Http\Controllers\Api\DriverController@driverProfile');
     Route::put('driver-update', 'App\Http\Controllers\Api\DriverController@updateDriver');
     Route::put('assign-driver/{id}', 'App\Http\Controllers\Api\OrderController@assignDriver');
-    Route::post('toggle-on/{loc}/{lat}/{long}', 'App\Http\Controllers\Api\DriverController@toggleOn');
-    Route::post('toggle-off', 'App\Http\Controllers\Api\DriverController@toggleOff');
-    Route::post('update-loc/{loc}/{lat}/{long}', 'App\Http\Controllers\Api\DriverController@updateLocation');
+    Route::post('toggle/{loc}/{lat}/{long}/{status}', 'App\Http\Controllers\Api\DriverController@toggle');
 });
 
 

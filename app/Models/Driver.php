@@ -29,6 +29,7 @@ class Driver extends Authenticatable implements JWTSubject
         return $this->hasMany('App\Models\Refund', 'driverID');
         return $this->hasMany('App\Models\Sim', 'driverID');
         return $this->hasMany('App\Models\DriverLoc', 'driverID');
+        return $this->hasMany('App\Models\DriverVerification', 'driverID');
     }
 
     /**

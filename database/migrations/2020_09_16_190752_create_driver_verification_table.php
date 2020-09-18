@@ -18,6 +18,7 @@ class CreateDriverVerificationTable extends Migration
             $table->integer('driverID')->unsigned();
             $table->integer('orderID')->unsigned();
             $table->string('photo');
+            $table->enum('status', ['start','finish']);
             $table->timestamps();
 
             $table->foreign('driverID')

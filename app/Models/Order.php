@@ -18,9 +18,10 @@ class Order extends Model
 
     public function order(){
         return $this->hasMany('App\Models\Cancellation', 'orderID');
-        return $this->hasMany('App\Models\Complaint', 'complaintID');
-        return $this->hasMany('App\Models\Location', 'locationID');
-        return $this->hasMany('App\Models\Payment', 'paymentID');
+        return $this->hasMany('App\Models\Complaint', 'orderID');
+        return $this->hasMany('App\Models\Location', 'orderID');
+        return $this->hasMany('App\Models\Payment', 'orderID');
+        return $this->hasMany('App\Models\DriverVerification', 'orderID');
     }
 
     public function driver(){

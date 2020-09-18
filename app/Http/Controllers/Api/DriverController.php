@@ -121,71 +121,72 @@ class DriverController extends Controller
         }
     }
 
-    public function toggleOn($loc, $lat, $long){
+    public function toggle($loc, $lat, $long, $status){
         $datadriver = Driver::find(auth()->id());
-        $datadriver->status = 'active';
+            if ($status == 'active') {
+                $dataloc = DriverLoc::where('driverID', $datadriver->driverID)->first();
+                if ($dataloc == null or $dataloc == null) {
+                    $datadriver->status = 'active';
 
-        if($datadriver->save()){
-            $driverloc = DriverLoc::create([
-               'driverID' => auth()->id(),
-               'location' => $loc,
-               'long' => $long,
-               'lat' => $lat
-            ]);
-            return response()->json([
-                'message' => 'Driver location created.',
-                'driver' => $datadriver,
-                'driverloc' => $driverloc
-            ], 201);
-        }else{
-            return response()->json([
-                'message' => 'Failed to create driver location.'
-            ], 400);
-        }
-    }
+                    if ($datadriver->save()) {
+                        $driverloc = DriverLoc::create([
+                            'driverID' => auth()->id(),
+                            'location' => $loc,
+                            'long' => $long,
+                            'lat' => $lat
+                        ]);
+                        return response()->json([
+                            'message' => 'Driver location created.',
+                            'driver' => $datadriver,
+                            'driverloc' => $driverloc
+                        ], 201);
+                    } else {
+                        return response()->json([
+                            'message' => 'Failed to create driver location.'
+                        ], 400);
+                    }
+                } else {
+                    $driverlocupdate = DriverLoc::where('driverID', auth()->id())->first();
+                    $driverlocupdate->location = $loc;
+                    $driverlocupdate->long = $long;
+                    $driverlocupdate->lat = $lat;
 
-    public function toggleOff(){
-        $datadriver = Driver::find(auth()->id());
-        $datadriver->status = 'inactive';
+                    if ($driverlocupdate->save()) {
+                        return response()->json([
+                            'message' => 'Driver location updated.',
+                            'driverloc' => $driverlocupdate,
+                        ], 201);
+                    } else {
+                        return response()->json([
+                            'message' => 'Failed to update driver location.'
+                        ], 400);
+                    }
+                }
+            } elseif ($status == 'inactive') {
+                $datadriver = Driver::find(auth()->id());
+                if ($datadriver->status == 'active') {
+                    $datadriver->status = 'inactive';
 
-        if($datadriver->save()) {
-            $driverloc = DriverLoc::where('driverID', auth()->id())->first();
-            if ($driverloc->delete()) {
-                return response()->json([
-                    'message' => 'Driver location deleted.',
-                    'driver' => $datadriver,
-                ], 201);
-            } else {
-                return response()->json([
-                    'message' => 'Failed to delete driver location.'
-                ], 400);
+                    if ($datadriver->save()) {
+                        $driverloc = DriverLoc::where('driverID', auth()->id())->first();
+                        if ($driverloc->delete()) {
+                            return response()->json([
+                                'message' => 'Driver location deleted.',
+                                'driver' => $datadriver,
+                            ], 201);
+                        } else {
+                            return response()->json([
+                                'message' => 'Failed to delete driver location.'
+                            ], 400);
+                        }
+                    }
+                } else {
+                    return response()->json([
+                        'message' => 'Driver is inactive'
+                    ], 400);
+                }
+
             }
-        }
-    }
-
-    public function updateLocation($loc, $lat, $long){
-        $datadriver = Driver::find(auth()->id());
-        if($datadriver->status == 'active'){
-            $driverloc = DriverLoc::where('driverID', auth()->id())->first();
-            $driverloc->location = $loc;
-            $driverloc->long = $long;
-            $driverloc->lat = $lat;
-            if($driverloc->save()){
-                return response()->json([
-                    'message' => 'Driver location updated.',
-                    'driverloc' => $driverloc,
-                ], 201);
-            }else{
-                return response()->json([
-                    'message' => 'Failed to update driver location.'
-                ], 400);
-            }
-        }else{
-            return response()->json([
-                'message' => 'Driver is inactive.'
-            ], 400);
-        }
-
     }
 
     /**
